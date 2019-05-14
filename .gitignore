@@ -27,4 +27,5 @@ var/
 *.egg
 *.log
 *.swp
- .DS_Store
+.DS_Store
+.vscode
