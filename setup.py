@@ -1,7 +1,7 @@
 from setuptools import setup 
 setup(
     name="db",
-    version="1.0.1",
+    version="1.1.1",
     author="viver",
     author_email="luoxianlinviver@gmail.com",
     url="iner",
