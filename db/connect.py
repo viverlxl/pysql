@@ -63,16 +63,20 @@ class DataBase:
     def commit(self):
         try:
             self.cursor.execute("commit")
+            self.auto_commit = 1
         except:
             self._reconn()
             self.cursor.execute("commit")
+            self.auto_commit = 1
 
     def rollback(self):
         try:
             self.cursor.execute("rollback")
+            self.auto_commit = 1
         except:
             self._reconn()
             self.cursor.execute("rollback")
+            self.auto_commit = 1
         
     def close(self):
         self.db.close()
@@ -134,9 +138,8 @@ class DataBase:
         if not isinstance(entry, dict) and not isinstance(cond, dict):
             raise TypeError("type error")
 
-        values = ", ".join(str.format("{0}=\"{1}\"", k, entry[k]) if entry[k] else 'NULL' for k in entry)
-        conds  = ", ".join(str.format("{0}=\"{1}\"", k, cond[k]) if cond[k] else 'NULL' for k in cond)
-        
+        values = ", ".join(str.format("{0}=\"{1}\"", k, entry[k]) for k in entry)
+        conds  = " and ".join(str.format("{0}=\"{1}\"", k, cond[k]) for k in cond)
         statement = str.format("UPDATE {0} SET {1} WHERE {2}", table, values, conds)
         if self.debug:
             logging.info(statement)
@@ -148,7 +151,6 @@ class DataBase:
     def query(self, statement, use_result = False):
         data = None
         try:
-            self.cursor.execute(statement)
             data = self.execute_query(statement)
         except:
             self._reconn()
@@ -162,6 +164,7 @@ class DataBase:
         self.cursor.execute(statement)
         cols = self.cursor.description
         data = self.cursor.fetchall()
+        self.commit()
         fields = []
         for col_name in cols:
             fields.append(col_name[0])
@@ -169,8 +172,6 @@ class DataBase:
         for row_data in data:
             tmp = dict(zip(fields, row_data))
             result.append(tmp)
-        if len(result) == 1:
-            return result[0]
         return result
 
     def execute(self, statement):
