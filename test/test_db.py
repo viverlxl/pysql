@@ -65,6 +65,16 @@ def test_insert():
     num = test.insert(entity2, "test")
     print("insert 测试%s"%num)
 
+def test_insert_many():
+    data = []
+    for i in range(11):
+        tmp = {}
+        tmp.setdefault("name", "张%s"%i)
+        tmp.setdefault("age", i)
+        data.append(tmp)
+    num = test.insert(data, "test")
+    print("insert 测试%s"%num)
+
 def test_update():
     global test
     update_entry = {
@@ -86,6 +96,17 @@ def test_delete():
     num = test.delete("test", cond)
     print("delete 测试%s"%num)
 
+
+def test_update_many():
+    global test
+    entry = []
+    for i in range(7, 200):
+        name = "哈哈%s"%i
+        tmp = {"name": name, "age": 1000, "update_field": {"id": i}}
+        entry.append(tmp)
+    # print(entry)
+    num = test.update_many(entry, "test")
+    print("update 测试 %s"%num)
 
 
 if __name__ == "__main__":
