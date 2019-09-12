@@ -41,6 +41,14 @@ class DataBase:
     def _reconn(self):
         self._conn(self.conf)
 
+    def reconn(self):
+        self._conn(self.conf)
+    
+    def status(self):
+        # 连接状态
+        if self.db.open:
+            return True
+        return False
 
     def lock(self, tbl_list, lock_type = LOCK_WRITE):
         sql = ", ".join(
