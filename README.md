@@ -4,11 +4,11 @@
 
 ​	 python setup.py install 
 
-#####IMPORT
+##### IMPORT
 
 ​	from pysql import DataClient
 
-#####USE
+##### USE
 
 ```python
 from pysql import DataClient
