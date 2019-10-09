@@ -48,61 +48,68 @@ def test_query():
         print(item['id'])
 
 
-# def test_insert():
-#     entity = {
-#                 "name": "张三",
-#                 "age" : 10
-#                 }
-#     entity2 = {
-#             "name": "王五",
-#             "age" : 20
-#     }
-#     num = test.insert(entity, "test")
-#     num = test.insert(entity2, "test")
-#     print("insert 测试%s"%num)
+def test_insert():
+    """
+        insert one record 
+    """
+    entity = {
+                "name": "张三",
+                "age" : 10
+                }
+    entity2 = {
+            "name": "王五",
+            "age" : 20
+    }
+    num = test.insert(entity, "test")
+    num = test.insert(entity2, "test")
+    print("insert 测试%s"%num)
 
-# def test_insert_many():
-#     data = []
-#     for i in range(11):
-#         tmp = {}
-#         tmp.setdefault("name", "张%s"%i)
-#         tmp.setdefault("age", i)
-#         data.append(tmp)
-#     num = test.insert(data, "test")
-#     print("insert 测试%s"%num)
+def test_insert_many():
+    " insert more one record"
+    data = []
+    for i in range(200):
+        tmp = {}
+        tmp.setdefault("name", "张%s"%i)
+        tmp.setdefault("age", i)
+        data.append(tmp)
+    num = test.insert(data, "test")
+    print("insert 测试%s"%num)
 
-# def test_update():
-#     global test
-#     update_entry = {
-#             "age" : "4",
-#             "name": "李四"
-#         }
-#     cond = {
-#             "id": "2"
-#         }
-#     num = test.update(update_entry, "test", cond)
-#     print("update 测试 %s"%num)
-
-
-# def test_delete():
-#     global test
-#     cond = {
-#             "id": "1"
-#         }
-#     num = test.delete("test", cond)
-#     print("delete 测试%s"%num)
+def test_update():
+    "update one record"
+    global test
+    update_entry = {
+            "age" : "4",
+            "name": "李四"
+        }
+    cond = {
+            "id": "2"
+        }
+    num = test.update(update_entry, "test", cond)
+    print("update 测试 %s"%num)
 
 
-# def test_update_many():
-#     global test
-#     entry = []
-#     for i in range(7, 200):
-#         name = "哈哈%s"%i
-#         tmp = {"name": name, "age": 1000, "update_field": {"id": i}}
-#         entry.append(tmp)
-#     # print(entry)
-#     num = test.update_many(entry, "test")
-#     print("update 测试 %s"%num)
+def test_delete():
+    "delete record"
+    global test
+    cond = {
+            "id": "1"
+        }
+    num = test.delete("test", cond)
+    print("delete 测试%s"%num)
+
+
+def test_update_many():
+    "update one more record"
+    global test
+    entry = []
+    for i in range(7, 200):
+        name = "哈哈%s"%i
+        tmp = {"name": name, "age": 1000, "update_field": {"id": i}}
+        entry.append(tmp)
+    # print(entry)
+    num = test.update_many(entry, "test")
+    print("update 测试 %s"%num)
 
 
 if __name__ == "__main__":
