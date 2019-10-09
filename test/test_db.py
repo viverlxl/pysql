@@ -1,7 +1,7 @@
 # coding:utf-8
 import pytest
 
-from db import DataClient
+from pysql import DataClient
 
 test = ""
 
@@ -23,14 +23,14 @@ DEBUG = True
 def setup_function():
     global test
     dataClient = DataClient(DATABASE)
-    print("初始化数据库")
+    print("init database")
     test = dataClient.get_db_by_name("test")
 
 
 
 def teardown_function():
     global test
-    print("关闭数据库")
+    print("close database")
     test.close()
 
 def test_status():
@@ -38,22 +38,14 @@ def test_status():
     print(test.status())
 
 
-# def test_query_one():
-#     global test
-#     sql = """
-#         select * from test limit 1
-#     """
-#     data = test.query(sql)
-#     print("单查询测试%s"%data['name'])
-
-# def test_query():
-#     global test
-#     sql = """
-#         select * from test limit 10
-#     """
-#     data = test.query(sql)
-#     for item in data:
-#         print(item['id'])
+def test_query():
+    global test
+    sql = """
+        select * from test limit 10
+    """
+    data = test.query(sql)
+    for item in data:
+        print(item['id'])
 
 
 # def test_insert():
