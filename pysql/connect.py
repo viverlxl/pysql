@@ -1,4 +1,7 @@
 #coding:utf-8
+"""
+    @author: luoxianlinviver@gmail.com
+"""
 import pymysql
 import logging
 import datetime
@@ -221,7 +224,10 @@ class DataBase:
                 update_elem.append(tmp_str)
             if not update_elem:
                 return
-            statement = "UPDATE {0} SET {1} END WHERE {2} IN {3} AND {4}".format(table, " END, ".join(update_elem), case_key, tuple(in_set), conds if conds else " 1 = 1")
+            if len(in_set) == 1:
+                statement = "UPDATE {0} SET {1} END WHERE {2} IN ('{3}') AND {4}".format(table, " END, ".join(update_elem), case_key, in_set.pop(), conds if conds else " 1 = 1")
+            else:
+                statement = "UPDATE {0} SET {1} END WHERE {2} IN {3} AND {4}".format(table, " END, ".join(update_elem), case_key, tuple(in_set), conds if conds else " 1 = 1")
 
             if self.debug:
                 logging.info(statement)
@@ -321,24 +327,3 @@ class DataClient:
                 raise NameError("db name error")
         return db
    
-    
-
-
-
-
-    
-
-    
-        
-    
-
-
-
-    
-
-
-    
-
-
-
-

@@ -5,6 +5,6 @@ setup(
     author="viver",
     author_email="luoxianlinviver@gmail.com",
     url="iner",
-    packages=["db"],
+    packages=["pysql"],
     install_requires=["PyMySQL==0.9.3"]
 )
