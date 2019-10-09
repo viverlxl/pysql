@@ -1,6 +1,6 @@
 from setuptools import setup 
 setup(
-    name="db",
+    name="pysql",
     version="1.1.1",
     author="viver",
     author_email="luoxianlinviver@gmail.com",
